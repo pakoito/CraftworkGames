@@ -79,9 +79,9 @@
     <Compile Include="VisualStyles\BorderedVisualStyle.cs" />
     <Compile Include="VisualStyles\IGuiSprite.cs" />
     <Compile Include="VisualStyles\TextStyle.cs" />
-    <Compile Include="MonoGameGuiManager.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="GuiContent.cs" />
+    <Compile Include="GuiSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

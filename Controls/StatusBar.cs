@@ -40,21 +40,10 @@ namespace CraftworkGames.Gui
 		{
 		}
 
-        public override void Update(IInputManager inputManager, float deltaTime)
-        {
-            throw new NotImplementedException();
-        }
-        
         public override void Draw(IDrawManager drawManager)
         {
             throw new NotImplementedException();
         }
-
-//		public override void Draw (SpriteBatch spriteBatch)
-//		{
-//			var destinationRectangle = new Rectangle(X, Y, Width, Height);
-//			spriteBatch.Draw(Texture, destinationRectangle, SourceRectangle, Color.White);
-//		}
 	}
 }
 

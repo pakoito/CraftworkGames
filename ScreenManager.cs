@@ -6,7 +6,7 @@ namespace CraftworkGames.Gui
 {
     public class ScreenManager
     {
-        public ScreenManager(MonoGameGuiManager guiManager, TextureAtlas textureAtlas)
+        public ScreenManager(GuiSystem guiManager, TextureAtlas textureAtlas)
         {
             _guiManager = guiManager;
             TextureAtlas = textureAtlas;
@@ -14,7 +14,7 @@ namespace CraftworkGames.Gui
 
         public TextureAtlas TextureAtlas { get; private set; }
 
-        private MonoGameGuiManager _guiManager;
+        private GuiSystem _guiManager;
         private Dictionary<int, Screen> _screenMap = new Dictionary<int, Screen>();
 
         public void Register(int id, Screen screen)
