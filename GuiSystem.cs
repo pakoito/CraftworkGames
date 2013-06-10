@@ -39,7 +39,7 @@ using CraftworkGames.Core;
 
 namespace CraftworkGames.Gui
 {
-    public class GuiSystem : System<Control>, IDrawManager, IInputManager, IDrawSystem, IUpdateSystem
+    public class GuiSystem : System<Screen>, IDrawManager, IInputManager, IDrawSystem, IUpdateSystem
     {
         private ContentManager _contentManager;
         private FontRenderer _fontRenderer;
@@ -57,6 +57,8 @@ namespace CraftworkGames.Gui
         {
             TextureAtlas = guiContent.TextureAtlas;
             LoadFont(guiContent.FontFile);
+
+            _screenManager = new ScreenManager(this, TextureAtlas);
         }
 
         public bool Update(float deltaTime)
@@ -241,14 +243,18 @@ namespace CraftworkGames.Gui
 
         #region implemented abstract members of System
 
-        public override void AddComponent(Control control)
+        private ScreenManager _screenManager;
+
+        public override void AddComponent(Screen screen)
         {
-            Screen.Items.Add(control);
+            _screenManager.Register(1, screen);
+            _screenManager.Activate(1);
+            Screen = screen;
         }
 
-        public override void RemoveComponent(Control control)
+        public override void RemoveComponent(Screen screen)
         {
-            Screen.Items.Remove(control);
+            // TODO
         }
 
         #endregion
