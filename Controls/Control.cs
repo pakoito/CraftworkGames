@@ -159,7 +159,10 @@ namespace CraftworkGames.Gui
 			}
 		}
         		
-        public abstract void Update(IInputManager inputManager, float deltaTime);
+        public virtual void Update(IInputManager inputManager, float deltaTime)
+        {
+        }
+
         public abstract void Draw(IDrawManager drawManager);
 
         public bool ContainsPoint(Point point)

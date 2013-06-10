@@ -49,10 +49,6 @@ namespace CraftworkGames.Gui
 
         public VisualStyle NormalStyle { get; set; }
 
-        public override void Update(IInputManager inputManager, float deltaTime)
-        {
-        }
-
         public override void Draw(IDrawManager drawManager)
         {
             if (NormalStyle != null)
