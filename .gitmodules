@@ -1,0 +1,3 @@
+[submodule "CraftworkGames.Core"]
+	path = CraftworkGames.Core
+	url = https://github.com/craftworkgames/CraftworkGames.Core.git
