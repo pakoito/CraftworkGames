@@ -1,7 +1,4 @@
 Debug
 
 Release
-
-/*.suo
-
-/*.userprefs
+/Source/CraftworkGames.GuiDemo/*.suo

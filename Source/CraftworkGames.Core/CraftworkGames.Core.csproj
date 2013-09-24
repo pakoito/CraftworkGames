@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B18D4025-4332-4D26-843D-D90223B0BC7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CraftworkGames.Core</RootNamespace>
+    <AssemblyName>CraftworkGames.Core</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\INameable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Textures\TextureAtlas.cs" />
+    <Compile Include="Textures\TextureRegion.cs" />
+    <Compile Include="Utility\DelayedAction.cs" />
+    <Compile Include="Interfaces\ITransformable.cs" />
+    <Compile Include="Interfaces\IRotatable.cs" />
+    <Compile Include="Interfaces\IMoveable.cs" />
+    <Compile Include="Interfaces\IScalable.cs" />
+    <Compile Include="Interfaces\IUpdatable.cs" />
+    <Compile Include="Interfaces\IDrawSprite.cs" />
+    <Compile Include="Utility\EventList.cs" />
+    <Compile Include="Interfaces\IRectangular.cs" />
+    <Compile Include="Interfaces\ISprite.cs" />
+    <Compile Include="Utility\ItemEventArgs.cs" />
+    <Compile Include="Interfaces\ITextureRegion.cs" />
+    <Compile Include="Extensions\Vector2Extensions.cs" />
+    <Compile Include="Extensions\IRectangularExtensions.cs" />
+    <Compile Include="Systems\ISystem.cs" />
+    <Compile Include="Systems\System.cs" />
+    <Compile Include="Systems\IEntityComponent.cs" />
+    <Compile Include="Systems\IUpdateSystem.cs" />
+    <Compile Include="Systems\IDrawSystem.cs" />
+    <Compile Include="Utility\Size.cs" />
+    <Compile Include="Utility\SizeF.cs" />
+    <Compile Include="Utility\TypeLookup.cs" />
+    <Compile Include="Utility\FrameCounter.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
+</Project>

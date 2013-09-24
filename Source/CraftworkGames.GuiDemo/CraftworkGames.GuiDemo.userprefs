@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Game1.cs">
+    <Files>
+      <File FileName="Game1.cs" Line="67" Column="25" />
+      <File FileName="d:\CraftworkGames\Source\CraftworkGames.Gui\GuiSystem.cs" Line="251" Column="40" />
+      <File FileName="Screens\TitleScreen.cs" Line="37" Column="15" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="CraftworkGames.Core" expanded="True" />
+          <Node name="CraftworkGames.Gui" expanded="True" selected="True" />
+          <Node name="CraftworkGames.GuiDemo" expanded="True">
+            <Node name="Content" expanded="True" />
+            <Node name="Screens" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
