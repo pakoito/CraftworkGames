@@ -1,4 +1,5 @@
 Debug
 
 Release
-/Source/CraftworkGames.GuiDemo/*.suo
+/Source/CraftworkGames*/*.suo
+*Thumbs.db

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftworkGames.Gui", "CraftworkGames.Gui.csproj", "{EE705CD4-66E4-429D-8896-1B6E89B83633}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftworkGames.Core", "CraftworkGames.Core\CraftworkGames.Core.csproj", "{B18D4025-4332-4D26-843D-D90223B0BC7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftworkGames.Core", "..\CraftworkGames.Core\CraftworkGames.Core.csproj", "{B18D4025-4332-4D26-843D-D90223B0BC7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftworkGames.GuiDemo", "..\CraftworkGames.GuiDemo\CraftworkGames.GuiDemo.csproj", "{64FDEEE6-C177-46F9-B899-565BEF14FF49}"
 EndProject
