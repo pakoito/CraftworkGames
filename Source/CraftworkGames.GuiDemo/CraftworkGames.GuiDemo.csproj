@@ -6,7 +6,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{64FDEEE6-C177-46F9-B899-565BEF14FF49}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>CraftworkGames.GuiDemo</RootNamespace>
     <MonoGamePlatform>WindowsGL</MonoGamePlatform>
     <AssemblyName>CraftworkGames.GuiDemo</AssemblyName>
@@ -28,6 +28,9 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">

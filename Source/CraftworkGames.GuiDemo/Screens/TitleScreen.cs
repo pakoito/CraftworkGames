@@ -16,16 +16,15 @@ namespace CraftworkGames.GuiDemo
         public override void OnInitialised(ScreenManager screenManager)
         {
             var textureAtlas = screenManager.TextureAtlas;
+
+            // backgrounds need some work to support a different texture
+            // but the following line will show the idea
+            //Background = new VisualStyle(textureAtlas.GetRegion("Facebook"));
+            
             var textureRegion = textureAtlas.GetRegion("PlayButton");
             var normalStyle = new VisualStyle(textureRegion);
-            var hoverStyle = new VisualStyle(textureRegion)
-            {
-                Scale = new Vector2(1.05f)
-            };
-            var pressedStyle = new VisualStyle(textureRegion)
-            {
-                Scale = new Vector2(0.95f)
-            };
+            var hoverStyle = new VisualStyle(textureRegion) { Scale = new Vector2(1.05f) };
+            var pressedStyle = new VisualStyle(textureRegion) { Scale = new Vector2(0.95f) };
 
             _playButton = new Button(normalStyle)
             {
