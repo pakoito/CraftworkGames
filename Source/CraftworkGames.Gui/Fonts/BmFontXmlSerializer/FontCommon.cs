@@ -10,11 +10,7 @@ namespace CraftworkGames.Gui
 	// ---- By DeadlyDan @ deadlydan@gmail.com -------------------
 	// ---- There's no license restrictions, use as you will. ----
 	// ---- Credits to http://www.angelcode.com/ -----------------	
-<<<<<<< HEAD:Fonts/BmFontXmlSerializer/FontCommon.cs
 	[DataContractAttribute]
-=======
-	//[Serializable]
->>>>>>> upstream/master:Source/CraftworkGames.Gui/Fonts/BmFontXmlSerializer/FontCommon.cs
 	public class FontCommon
 	{
         [DataMember(Name = "lineHeight")]
