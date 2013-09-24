@@ -9,7 +9,7 @@ namespace CraftworkGames.Gui
 	// ---- By DeadlyDan @ deadlydan@gmail.com -------------------
 	// ---- There's no license restrictions, use as you will. ----
 	// ---- Credits to http://www.angelcode.com/ -----------------	
-	[Serializable]
+	//[Serializable]
 	public class FontCommon
 	{
 		[XmlAttribute ( "lineHeight" )]

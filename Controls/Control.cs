@@ -140,12 +140,12 @@ namespace CraftworkGames.Gui
         public event EventHandler PositionChanged;
         public event EventHandler SizeChanged; 
 
-        private void RaiseEvent(EventHandler eventHandler)
+        protected void RaiseEvent(EventHandler eventHandler)
         {
             RaiseEvent(eventHandler, EventArgs.Empty);
         }
 
-        private void RaiseEvent(EventHandler eventHandler, EventArgs eventArgs)
+        protected void RaiseEvent(EventHandler eventHandler, EventArgs eventArgs)
         {
             if(eventHandler != null)
                 eventHandler(this, eventArgs);

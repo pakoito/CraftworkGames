@@ -53,20 +53,24 @@ namespace CraftworkGames.Gui
         public VisualStyle HoverStyle { get; set; }
 
 		public event EventHandler Clicked;
+        public event EventHandler Pressed;
+        public event EventHandler Released;
 		
 		public void Click ()
 		{
-			if(Clicked != null)
-				Clicked(this, EventArgs.Empty);
+            RaiseEvent(Clicked);
 		}
-        		
+
 		private const float _repeatDelay = 0.18f;
 		private float _remainingRepeatDelay = _repeatDelay;
 
         public override void Update (IInputManager inputManager, float deltaTime)
 		{
 			IsMouseOver = ContainsPoint(inputManager.MousePosition);
-			
+
+            if (IsPressed && !inputManager.IsInputPressed)
+                RaiseEvent(Released);
+
 			if(IsMouseOver)
 			{
 				if(IsPressed)
@@ -80,14 +84,17 @@ namespace CraftworkGames.Gui
 					if(IsRepeating)
 						_remainingRepeatDelay -= deltaTime;
 				}
-				
+
+                if (!IsPressed && inputManager.IsInputPressed)
+                    RaiseEvent(Pressed);
+
                 IsPressed = inputManager.IsInputPressed;
 			}
 			else
 			{
 				IsPressed = false;
 				_remainingRepeatDelay = _repeatDelay;
-			}		
+			}
 		}
 
         protected virtual VisualStyle GetCurrentStyle()

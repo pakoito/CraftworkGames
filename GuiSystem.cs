@@ -43,9 +43,11 @@ namespace CraftworkGames.Gui
     {
         private ContentManager _contentManager;
         private FontRenderer _fontRenderer;
+        private GraphicsDevice _graphicsDevice;
 
         public GuiSystem(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
+            _graphicsDevice = graphicsDevice;
             _spriteBatch = new SpriteBatch(graphicsDevice);
             _contentManager = contentManager;
         }
@@ -80,13 +82,13 @@ namespace CraftworkGames.Gui
         public ITextureRegion LoadTexture(string name)
         {
             var texture = _contentManager.Load<Texture2D>(name);
-            var textureAtlas = new TextureAtlas(texture);
-            return new TextureRegion(textureAtlas, name, 0, 0, texture.Width, texture.Height);
+            var textureAtlas = new TextureAtlas(name, texture);
+            return new TextureRegion(texture, name, 0, 0, texture.Width, texture.Height);
         }
 
         private void LoadFont(string fontFile)
         {
-            string path = Path.Combine(_contentManager.RootDirectory, fontFile);
+            string path = fontFile;// Path.Combine(_contentManager.RootDirectory, fontFile);
 
             using(var stream = TitleContainer.OpenStream(path))
             {
@@ -121,7 +123,7 @@ namespace CraftworkGames.Gui
         public void Draw(IGuiSprite sprite, Rectangle destinationRectangle)
         {
             var textureRegion = sprite.TextureRegion as TextureRegion;
-            var texture = textureRegion.TextureAtlas.Texture;
+            var texture = textureRegion.Texture;
             
             if(texture != null)
             {
@@ -143,7 +145,7 @@ namespace CraftworkGames.Gui
 
         private void Draw(TextureRegion textureRegion, Rectangle destinationRectangle)
         {
-            var texture = textureRegion.TextureAtlas.Texture;
+            var texture = textureRegion.Texture;
 
             if(texture != null)
             {
@@ -204,9 +206,13 @@ namespace CraftworkGames.Gui
         private SpriteBatch _spriteBatch;
         public void StartBatch()
         {
+            var scaleX = (float)_graphicsDevice.Viewport.Width / (float)Screen.Width;
+            var scaleY = (float)_graphicsDevice.Viewport.Height / (float)Screen.Height;
+            var screenScale = new Vector3(scaleX, scaleY, 1.0f);
+
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, 
                                SamplerState.AnisotropicClamp, DepthStencilState.Default, 
-                               RasterizerState.CullNone, null, Matrix.CreateScale(1));
+                               RasterizerState.CullNone, null, Matrix.CreateScale(screenScale));
         }
 
         public void EndBatch()

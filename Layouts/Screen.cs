@@ -66,6 +66,7 @@ namespace CraftworkGames.Gui
             {
                 ScreenManager = screenManager;
                 OnInitialised(screenManager);
+                PerformLayout();
                 IsInitialised = true;
             }
         }

@@ -37,13 +37,30 @@ namespace CraftworkGames.Gui
         public ToggleButton(VisualStyle normalStyle)
             : base(normalStyle)
         {
-            Clicked += OnClicked;
+            Pressed += OnPressed;
         }
 
-        public bool IsChecked { get; set; }
+        public event EventHandler IsCheckedChanged;
+
+        private bool _isChecked;
+        public bool IsChecked 
+        {
+            get
+            {
+                return _isChecked;
+            }
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    RaiseEvent(IsCheckedChanged);
+                }
+            }
+        }
         public VisualStyle CheckedStyle { get; set; }
 
-        private void OnClicked (object sender, EventArgs e)
+        private void OnPressed (object sender, EventArgs e)
         {
             IsChecked = !IsChecked;
         }

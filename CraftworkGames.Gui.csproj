@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,7 +31,7 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\Libraries\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -47,7 +47,6 @@
     <Compile Include="Controls\Image.cs" />
     <Compile Include="Controls\TextControl.cs" />
     <Compile Include="Fonts\FontRenderer.cs" />
-    <Compile Include="Fonts\Size.cs" />
     <Compile Include="Fonts\BmFontXmlSerializer\FontChar.cs" />
     <Compile Include="Fonts\BmFontXmlSerializer\FontCommon.cs" />
     <Compile Include="Fonts\BmFontXmlSerializer\FontFile.cs" />
