@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:9b62513b465e8231cfce55143f05d1fd$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="FrameworkGUI.png" width="512" height="256">
+    <sprite n="BackButton" x="396" y="79" w="64" h="63"/>
+    <sprite n="CogButton" x="330" y="144" w="64" h="63"/>
+    <sprite n="CraftworkGUI" x="2" y="2" w="448" h="75"/>
+    <sprite n="CrossButton" x="330" y="79" w="64" h="63"/>
+    <sprite n="Facebook" x="132" y="145" w="64" h="64"/>
+    <sprite n="PauseButton" x="264" y="144" w="64" h="63"/>
+    <sprite n="PlayButton" x="2" y="79" w="128" h="127"/>
+    <sprite n="ResetButton" x="264" y="79" w="64" h="63"/>
+    <sprite n="Star" x="396" y="144" w="63" h="60"/>
+    <sprite n="TickButton" x="198" y="144" w="64" h="63"/>
+    <sprite n="Twitter" x="132" y="79" w="64" h="64"/>
+    <sprite n="UpButton" x="198" y="79" w="64" h="63"/>
+</TextureAtlas>
