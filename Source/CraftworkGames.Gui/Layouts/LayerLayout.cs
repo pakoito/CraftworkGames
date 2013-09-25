@@ -42,7 +42,7 @@ namespace CraftworkGames.Gui
 
         public override void PerformLayout()
         {
-            foreach(var layer in Items)
+            foreach(var layer in Controls)
             {
                 layer.X = X;
                 layer.Y = Y;
@@ -53,7 +53,7 @@ namespace CraftworkGames.Gui
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items.SelectMany(i => i.Items);
+            return Controls.SelectMany(i => i.Controls);
         }
 
 

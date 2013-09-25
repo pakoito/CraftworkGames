@@ -26,8 +26,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
-
 using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,231 +37,36 @@ using CraftworkGames.Core;
 
 namespace CraftworkGames.Gui
 {
-    public class GuiSystem : System<Screen>, IDrawManager, IInputManager, IDrawSystem, IUpdateSystem
-    {
-        private ContentManager _contentManager;
-        private FontRenderer _fontRenderer;
-        private GraphicsDevice _graphicsDevice;
-
-        public GuiSystem(GraphicsDevice graphicsDevice, ContentManager contentManager)
+    public class GuiSystem
+    {   
+        public GuiSystem(IDrawManager drawManager, IInputManager inputManager)
         {
-            _graphicsDevice = graphicsDevice;
-            _spriteBatch = new SpriteBatch(graphicsDevice);
-            _contentManager = contentManager;
+            _drawManager = drawManager;
+            _inputManager = inputManager;
+            Controls = new List<Control>();
         }
 
-        public TextureAtlas TextureAtlas { get; private set; }
-        public Screen Screen { get; set; }
+        private IDrawManager _drawManager;
+        private IInputManager _inputManager;
 
-        public void LoadContent(GuiContent guiContent)
-        {
-            TextureAtlas = guiContent.TextureAtlas;
-            LoadFont(guiContent.FontFile);
-
-            _screenManager = new ScreenManager(this, TextureAtlas);
-        }
+        public List<Control> Controls { get; private set; }
 
         public bool Update(float deltaTime)
         {
-            ReadInputState();
-            
-            if(Screen != null)
-                Screen.Update(this, deltaTime);
+            _inputManager.ReadInputState();
+
+            foreach (var control in Controls)
+                control.Update(_inputManager, deltaTime);
 
             return true;
         }
                 
         public void Draw()
         {
-            if(Screen != null)
-                Screen.Draw(this);
+            _drawManager.Draw(800, 480, Controls);
         }
 
-        public ITextureRegion LoadTexture(string name)
-        {
-            var texture = _contentManager.Load<Texture2D>(name);
-            var textureAtlas = new TextureAtlas(name, texture);
-            return new TextureRegion(texture, name, 0, 0, texture.Width, texture.Height);
-        }
 
-        private void LoadFont(string fontFile)
-        {
-            string path = fontFile;// Path.Combine(_contentManager.RootDirectory, fontFile);
-
-            using(var stream = TitleContainer.OpenStream(path))
-            {
-                var fontData = FontLoader.Load(stream);
-                var texture = _contentManager.Load<Texture2D>(fontData.Pages[0].File);
-                _fontRenderer = new FontRenderer(fontData,  texture);
-            }
-        }
-
-        public event ItemEventHandler<Keys> KeyPressed;
-
-        private void ReadInputState()
-        {
-            var previousKeys = _keyboardState.GetPressedKeys();
-
-            _mouseState = Mouse.GetState();
-            _keyboardState = Keyboard.GetState();
-
-            if(previousKeys != null)
-            {
-                foreach(var key in previousKeys)
-                {
-                    if(_keyboardState.IsKeyUp(key))
-                    {
-                        if(KeyPressed != null)
-                            KeyPressed(this, new ItemEventArgs<Keys>(key));
-                    }
-                }
-            }
-        }
-
-        public void Draw(IGuiSprite sprite, Rectangle destinationRectangle)
-        {
-            var textureRegion = sprite.TextureRegion as TextureRegion;
-            var texture = textureRegion.Texture;
-            
-            if(texture != null)
-            {
-                var sourceRectangle = textureRegion.Rectangle;
-                var destRectangle = destinationRectangle;
-
-                if(sprite.Scale != Vector2.One)
-                {
-                    var scaledWidth = sprite.Scale.X * destRectangle.Width;
-                    var scaledHeight = sprite.Scale.Y * destRectangle.Height;
-                    var offsetX = (int)(destRectangle.Width - scaledWidth) / 2;
-                    var offsetY = (int)(destRectangle.Height - scaledHeight) / 2;
-                    destRectangle = new Rectangle(offsetX + destRectangle.X, offsetY + destRectangle.Y, (int)scaledWidth, (int)scaledHeight);
-                }
-
-                _spriteBatch.Draw(texture, destRectangle, sourceRectangle, sprite.Colour, sprite.Rotation, sprite.Origin, sprite.Effect, sprite.Depth);
-            }
-        }
-
-        private void Draw(TextureRegion textureRegion, Rectangle destinationRectangle)
-        {
-            var texture = textureRegion.Texture;
-
-            if(texture != null)
-            {
-                var sourceRectangle = new Rectangle(textureRegion.X, textureRegion.Y, textureRegion.Width, textureRegion.Height);
-
-                _spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-            }
-        }
-
-        public void DrawText(string text, Rectangle destinationRectangle, TextStyle style)
-        {
-            if (string.IsNullOrEmpty(text))
-                return;
-
-            var textPosition = AlignText(text, destinationRectangle, style);
-
-            _fontRenderer.DrawText(_spriteBatch, textPosition.X, textPosition.Y, text, style.Colour);        
-        }
-
-        private Point AlignText(string text, Rectangle destinationRectangle, TextStyle style)
-        {
-            int x = 0, y = 0;
-            var size = _fontRenderer.MeasureText(text);
-            var centre = destinationRectangle.Center;
-            var lineHeight = _fontRenderer.FontFile.Common.LineHeight;
-
-            switch(style.HorizontalAlignment)
-            {
-                case HorizontalAlignment.Centre:
-                    x = centre.X - size.Width / 2;
-                    break;
-                case HorizontalAlignment.Stretch:
-                case HorizontalAlignment.Left:
-                    x = destinationRectangle.X;
-                    break;
-                case HorizontalAlignment.Right:
-                    x = destinationRectangle.Right - size.Width;
-                    break;
-            }
-
-            switch(style.VerticalAlignment)
-            {
-                case VerticalAlignment.Centre:
-                    y = centre.Y - lineHeight / 2;
-                    break;
-                case VerticalAlignment.Stretch:
-                case VerticalAlignment.Top:
-                    y = destinationRectangle.Y;
-                    break;
-                case VerticalAlignment.Bottom:
-                    y = destinationRectangle.Bottom - size.Height;
-                    break;
-            }
-
-            return new Point(x, y);
-        }
-
-        private SpriteBatch _spriteBatch;
-        public void StartBatch()
-        {
-            var scaleX = (float)_graphicsDevice.Viewport.Width / (float)Screen.Width;
-            var scaleY = (float)_graphicsDevice.Viewport.Height / (float)Screen.Height;
-            var screenScale = new Vector3(scaleX, scaleY, 1.0f);
-
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, 
-                               SamplerState.AnisotropicClamp, DepthStencilState.Default, 
-                               RasterizerState.CullNone, null, Matrix.CreateScale(screenScale));
-        }
-
-        public void EndBatch()
-        {
-            _spriteBatch.End();
-        }
-
-        private MouseState _mouseState;
-        private KeyboardState _keyboardState;
-
-        public bool IsInputPressed
-        {
-            get
-            {
-                return _mouseState.LeftButton == ButtonState.Pressed;
-            }
-        }
-
-        public bool IsShiftDown
-        {
-            get
-            {
-                return _keyboardState.IsKeyDown(Keys.LeftShift) || _keyboardState.IsKeyDown(Keys.RightShift);
-            }
-        }
-
-        public Point MousePosition
-        {
-            get
-            {
-                return new Point(_mouseState.X, _mouseState.Y);
-            }
-        }
-
-        #region implemented abstract members of System
-
-        private ScreenManager _screenManager;
-
-        public override void AddComponent(Screen screen)
-        {
-            _screenManager.Register(1, screen);
-            _screenManager.Activate(1);
-            Screen = screen;
-        }
-
-        public override void RemoveComponent(Screen screen)
-        {
-            // TODO
-        }
-
-        #endregion
     }
 }
 

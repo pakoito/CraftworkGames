@@ -36,20 +36,23 @@ namespace CraftworkGames.Core
 {
     public class TextureRegion : ITextureRegion
     {
-        public TextureRegion(Texture2D texture, string name, int x, int y, int width, int height)
+        public TextureRegion(Texture2D texture, int x, int y, int width, int height)
         {
             Texture = texture;
             TextureName = texture.Name;
-            Name = name;
             X = x;
             Y = y;
             Width = width;
             Height = height;
         }
 
+        public TextureRegion(Texture2D texture)
+            : this(texture, 0, 0, texture.Width, texture.Height)
+        {
+        }
+
         public Texture2D Texture { get; private set; }
         public string TextureName { get; private set; }
-        public string Name { get; set; }
         public int X { get; private set; }
         public int Y { get; private set; }
         public int Width { get; private set; }

@@ -116,10 +116,9 @@ namespace CraftworkGames.Gui
         public override void Draw(IDrawManager drawManager)
         {
             var style = GetCurrentStyle();
+
             drawManager.Draw(style, Rectangle);
-            //style.Draw(drawManager, Rectangle);
             drawManager.DrawText(Text, Rectangle, TextStyle);
-            //TextStyle.Draw(drawManager, Text, Rectangle);
         }
 	}
 }

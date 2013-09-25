@@ -29,13 +29,14 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using CraftworkGames.Core;
 using Microsoft.Xna.Framework;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace CraftworkGames.Gui
 {
     public interface IDrawManager
     {
-        void StartBatch();
-        void EndBatch();
+        void Draw(int screenWidth, int screenHeight, IEnumerable<Control> controls);
         void Draw(IGuiSprite sprite, Rectangle destinationRectangle);
         void DrawText(string text, Rectangle destinationRectangle, TextStyle style);
     }

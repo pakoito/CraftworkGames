@@ -36,15 +36,42 @@ namespace CraftworkGames.GuiDemo
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Directory.SetCurrentDirectory(Content.RootDirectory);
-            var textureAtlas = TextureAtlas.Load(Content, "FrameworkGUI.xml");
             var fontFile = "ExampleFont.fnt";
+            
+            var drawManager = new GuiDrawManager(GraphicsDevice, Content, fontFile);
+            var inputManager = new GuiInputManager();
 
-            _gui = new GuiSystem(_graphics.GraphicsDevice, Content);
-            _gui.LoadContent(new GuiContent(textureAtlas, fontFile));
+            _gui = new GuiSystem(drawManager, inputManager);
 
-            var screen = new TitleScreen();
+            var layout = new DockLayout()
+            {
+                Width = 800,
+                Height = 480
+            };
 
-            _gui.AddComponent(screen);
+            var buttonOnTexture = Content.Load<Texture2D>("ButtonSwitchOn.png");
+            var buttonOffTexture = Content.Load<Texture2D>("ButtonSwitchOff.png");
+            var textureRegionOn = new TextureRegion(buttonOnTexture);
+            var textureRegionOff = new TextureRegion(buttonOffTexture);
+
+            var button = new Button(new VisualStyle(textureRegionOff))
+            {
+                PressedStyle = new VisualStyle(textureRegionOn)
+            };
+            layout.Controls.Add(new DockItem(button, DockStyle.Fill));
+
+            var textureAtlas = TextureAtlas.Load(Content, "FrameworkGUI.xml");
+            var textureRegion = textureAtlas.GetRegion("PlayButton");
+            var playButton = new Button(new VisualStyle(textureRegion))
+            {
+                HoverStyle = new VisualStyle(textureRegion) { Colour = new Color(Color.White, 0.8f) },
+                PressedStyle = new VisualStyle(textureRegion) { Scale = new Vector2(0.95f) },
+            };
+            layout.Controls.Add(new DockItem(playButton, DockStyle.Right));
+            
+            layout.PerformLayout();
+
+            _gui.Controls.Add(layout);            
         }
 
         protected override void Update(GameTime gameTime)

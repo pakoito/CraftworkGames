@@ -57,8 +57,8 @@ namespace CraftworkGames.Gui
 
         private Size CalculateDesiredSize()
         {
-            var rowHeight = Items.Max(i => i.Control.Height);
-            var columnWidth = Items.Max(i => i.Control.Width);
+            var rowHeight = Controls.Max(i => i.Control.Height);
+            var columnWidth = Controls.Max(i => i.Control.Width);
 
             return new Size(columnWidth * Columns, rowHeight * Rows);
         }
@@ -68,7 +68,7 @@ namespace CraftworkGames.Gui
             int cellWidth = Width / Columns;
             int cellHeight = Height / Rows;
 
-            foreach(var gridItem in Items)
+            foreach(var gridItem in Controls)
             {
                 var rectangle = new Rectangle(X + gridItem.Column * cellWidth, Y + gridItem.Row * cellHeight, cellWidth, cellHeight);
                 AlignControl(gridItem.Control, rectangle);
@@ -77,7 +77,7 @@ namespace CraftworkGames.Gui
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items.Select(i => i.Control);
+            return Controls.Select(i => i.Control);
         }
     }
 }

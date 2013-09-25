@@ -44,7 +44,7 @@ namespace CraftworkGames.Gui
 
         public override void PerformLayout()
         {
-            foreach(var item in Items)
+            foreach(var item in Controls)
             {
                 item.Control.X = X + item.X;
                 item.Control.Y = Y + item.Y;
@@ -53,7 +53,7 @@ namespace CraftworkGames.Gui
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items.Select(i => i.Control);
+            return Controls.Select(i => i.Control);
         }
     }
     

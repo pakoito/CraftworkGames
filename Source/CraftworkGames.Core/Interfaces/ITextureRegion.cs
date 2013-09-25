@@ -33,7 +33,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CraftworkGames.Core
 {
-    public interface ITextureRegion : IRectangular, INameable
+    public interface ITextureRegion : IRectangular
     {
         string TextureName { get; }
         Texture2D Texture { get; }

@@ -42,13 +42,13 @@ namespace CraftworkGames.Gui
 
         public override void PerformLayout()
         {
-            foreach(var control in Items)
+            foreach(var control in Controls)
                 AlignControl(control, this);
         }
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items;
+            return Controls;
         }
     }
 }

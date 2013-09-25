@@ -58,7 +58,7 @@ namespace CraftworkGames.Gui
             int width = 0;
             int height = 0;
 
-            foreach(var control in Items)
+            foreach(var control in Controls)
             {
                 var controlSize = GetSize(control);
                 Rectangle rectangle;
@@ -90,7 +90,7 @@ namespace CraftworkGames.Gui
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items;
+            return Controls;
         }
     }
 }

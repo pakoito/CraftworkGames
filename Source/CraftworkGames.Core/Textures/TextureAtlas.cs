@@ -44,18 +44,18 @@ namespace CraftworkGames.Core
         {
             Name = name;
             Texture = texture;
-            _regions = new List<ITextureRegion>();
+            _regions = new Dictionary<string,ITextureRegion>();
         }
 
         public string Name { get; private set; }
         public Texture2D Texture { get; private set; }
 
-        private List<ITextureRegion> _regions;
+        private Dictionary<string,ITextureRegion> _regions;
         public IEnumerable<ITextureRegion> Regions
         {
             get
             {
-                return _regions;
+                return _regions.Values;
             }
         }
 
@@ -65,20 +65,24 @@ namespace CraftworkGames.Core
 
         public ITextureRegion AddRegion(string name, int x, int y, int width, int height)
         {
-            var region = new TextureRegion(Texture, name, x, y, width, height);
-            _regions.Add(region);
+            var region = new TextureRegion(Texture, x, y, width, height);
+            _regions.Add(name, region);
             return region;
         }
 
         public void RemoveRegion(string name)
         {
-            var textureRegion = GetRegion(name);
-            _regions.Remove(textureRegion);
+            _regions.Remove(name);
         }
 
-        public ITextureRegion GetRegion(string textureRegionName)
+        public ITextureRegion GetRegion(string name)
         {
-            return _regions.Find(i => i.Name == textureRegionName);
+            ITextureRegion textureRegion;
+
+            if (_regions.TryGetValue(name, out textureRegion))
+                return textureRegion;
+
+            return null;
         }
 
         public static Texture2D LoadTexture(GraphicsDevice graphicsDevice, ContentManager contentManager, string textureName)
@@ -98,12 +102,11 @@ namespace CraftworkGames.Core
             return contentManager.Load<Texture2D>(textureName);
         }
 
-
         public static TextureAtlas Load(GraphicsDevice graphicsDevice, ContentManager contentManager, string filename)
         {
             try
             {
-                string path = filename;// Path.Combine(contentManager.RootDirectory, filename);
+                string path = filename;
                 string textureDirectory = Path.GetDirectoryName(filename);
 
                 using (var stream = TitleContainer.OpenStream(path))

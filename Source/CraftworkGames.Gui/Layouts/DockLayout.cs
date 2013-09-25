@@ -45,7 +45,7 @@ namespace CraftworkGames.Gui
         {
             var dockArea = new Rectangle(X, Y, Width, Height);
 
-            foreach(var dockItem in Items.Where(c => c.DockStyle != DockStyle.Fill))
+            foreach(var dockItem in Controls.Where(c => c.DockStyle != DockStyle.Fill))
             {
                 var control = dockItem.Control;
                 var controlSize = GetSize(control);
@@ -73,7 +73,7 @@ namespace CraftworkGames.Gui
                 }
             }
 
-            foreach(var dockItem in Items.Where(c => c.DockStyle == DockStyle.Fill))
+            foreach(var dockItem in Controls.Where(c => c.DockStyle == DockStyle.Fill))
             {
                 var control = dockItem.Control;
                 AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, dockArea.Height));
@@ -82,7 +82,7 @@ namespace CraftworkGames.Gui
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items.Select(i => i.Control);
+            return Controls.Select(i => i.Control);
         }
     }
 }

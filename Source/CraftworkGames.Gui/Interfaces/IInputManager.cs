@@ -37,6 +37,7 @@ namespace CraftworkGames.Gui
 {
     public interface IInputManager
     {
+        void ReadInputState();
         bool IsInputPressed { get; }
         Point MousePosition { get; }
         bool IsShiftDown { get; }

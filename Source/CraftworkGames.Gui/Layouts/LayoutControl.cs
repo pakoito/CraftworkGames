@@ -44,7 +44,7 @@ namespace CraftworkGames.Gui
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
             Margin = new Margin(0);
-            Items = new EventList<T>();
+            Controls = new EventList<T>();
             PositionChanged += LayoutPropertyChanged;
             SizeChanged += LayoutPropertyChanged;
         }
@@ -54,7 +54,7 @@ namespace CraftworkGames.Gui
             PerformLayout();
         }
 
-        public EventList<T> Items { get; private set; }
+        public EventList<T> Controls { get; private set; }
 
         public abstract void PerformLayout();
 
