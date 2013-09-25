@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CraftworkGames.Gui
 {
@@ -9,73 +10,73 @@ namespace CraftworkGames.Gui
 	// ---- By DeadlyDan @ deadlydan@gmail.com -------------------
 	// ---- There's no license restrictions, use as you will. ----
 	// ---- Credits to http://www.angelcode.com/ -----------------	
-	//[Serializable]
+	[DataContractAttribute]
 	public class FontCommon
 	{
-		[XmlAttribute ( "lineHeight" )]
+        [DataMember(Name = "lineHeight")]
 		public Int32 LineHeight
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "base" )]
+
+        [DataMember(Name = "base")]
 		public Int32 Base
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "scaleW" )]
+
+        [DataMember(Name = "scaleW")]
 		public Int32 ScaleW
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "scaleH" )]
+
+        [DataMember(Name = "scaleH")]
 		public Int32 ScaleH
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "pages" )]
+
+        [DataMember(Name = "pages")]
 		public Int32 Pages
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "packed" )]
+
+        [DataMember(Name = "packed")]
 		public Int32 Packed
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "alphaChnl" )]
+
+        [DataMember(Name = "alphaChnl")]
 		public Int32 AlphaChannel
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "redChnl" )]
+
+        [DataMember(Name = "redChnl")]
 		public Int32 RedChannel
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "greenChnl" )]
+
+        [DataMember(Name = "greenChnl")]
 		public Int32 GreenChannel
 		{
 			get;
 			set;
 		}
-		
-		[XmlAttribute ( "blueChnl" )]
+
+        [DataMember(Name = "blueChnl")]
 		public Int32 BlueChannel
 		{
 			get;
