@@ -88,7 +88,7 @@ namespace CraftworkGames.Gui
             Height = height;
         }
 
-        protected override IEnumerable<Control> GetControls()
+        public override IEnumerable<Control> GetControls()
         {
             return Controls;
         }

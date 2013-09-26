@@ -26,12 +26,21 @@ namespace CraftworkGames.Gui
         private SpriteBatch _spriteBatch;
         private FontRenderer _fontRenderer;
 
-        //public ITextureRegion LoadTexture(string name)
-        //{
-        //    var texture = _contentManager.Load<Texture2D>(name);
-        //    var textureAtlas = new TextureAtlas(name, texture);
-        //    return new TextureRegion(texture, name, 0, 0, texture.Width, texture.Height);
-        //}
+        public int ViewportWidth
+        {
+            get
+            {
+                return _graphicsDevice.Viewport.Width;
+            }
+        }
+
+        public int ViewportHeight
+        {
+            get
+            {
+                return _graphicsDevice.Viewport.Height;
+            }
+        }
 
         private void LoadFont(string fontFile)
         {
@@ -45,11 +54,9 @@ namespace CraftworkGames.Gui
             }
         }
 
-        public void Draw(int screenWidth, int screenHeight, IEnumerable<Control> controls)
+        public void Draw(float screenScaleX, float screenScaleY, IEnumerable<Control> controls)
         {
-            var scaleX = (float)_graphicsDevice.Viewport.Width / screenWidth;
-            var scaleY = (float)_graphicsDevice.Viewport.Height / screenHeight;
-            var screenScale = new Vector3(scaleX, scaleY, 1.0f);
+            var screenScale = new Vector3(screenScaleX, screenScaleY, 1.0f);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied,
                                SamplerState.AnisotropicClamp, DepthStencilState.Default,
@@ -80,7 +87,10 @@ namespace CraftworkGames.Gui
                     destRectangle = new Rectangle(offsetX + destRectangle.X, offsetY + destRectangle.Y, (int)scaledWidth, (int)scaledHeight);
                 }
 
-                _spriteBatch.Draw(texture, destRectangle, sourceRectangle, sprite.Colour, sprite.Rotation, sprite.Origin, sprite.Effect, sprite.Depth);
+                var origin = new Vector2(sprite.Origin.X * destinationRectangle.Width, sprite.Origin.Y * destinationRectangle.Height);
+                destRectangle.X += (int)origin.X;
+                destRectangle.Y += (int)origin.Y;
+                _spriteBatch.Draw(texture, destRectangle, sourceRectangle, sprite.Colour, sprite.Rotation, origin, sprite.Effect, sprite.Depth);
             }
         }
 

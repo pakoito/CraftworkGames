@@ -16,12 +16,13 @@ namespace CraftworkGames.Gui
 
         public event ItemEventHandler<Keys> KeyPressed;
 
-        public void ReadInputState()
+        public void ReadInputState(float screenScaleX, float screenScaleY)
         {
             var previousKeys = _keyboardState.GetPressedKeys();
 
             _mouseState = Mouse.GetState();
             _keyboardState = Keyboard.GetState();
+            _mousePosition = new Point((int)(_mouseState.X / screenScaleX), (int)(_mouseState.Y / screenScaleY));
 
             if (previousKeys != null)
             {
@@ -55,11 +56,12 @@ namespace CraftworkGames.Gui
             }
         }
 
+        private Point _mousePosition;
         public Point MousePosition
         {
             get
             {
-                return new Point(_mouseState.X, _mouseState.Y);
+                return _mousePosition;
             }
         }
     }

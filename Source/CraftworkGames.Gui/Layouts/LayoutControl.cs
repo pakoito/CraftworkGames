@@ -36,7 +36,7 @@ using CraftworkGames.Core;
 
 namespace CraftworkGames.Gui
 {
-    public abstract class LayoutControl<T> : Control
+    public abstract class LayoutControl<T> : Control, ILayoutControl
     {
         public LayoutControl()
             : base(null)
@@ -44,7 +44,10 @@ namespace CraftworkGames.Gui
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
             Margin = new Margin(0);
+
             Controls = new EventList<T>();
+            Controls.ItemAdded += LayoutPropertyChanged;
+            Controls.ItemRemoved += LayoutPropertyChanged;
             PositionChanged += LayoutPropertyChanged;
             SizeChanged += LayoutPropertyChanged;
         }
@@ -58,7 +61,7 @@ namespace CraftworkGames.Gui
 
         public abstract void PerformLayout();
 
-        protected abstract IEnumerable<Control> GetControls();
+        public abstract IEnumerable<Control> GetControls();
 
         protected void AlignControl(Control control, IRectangular rectangle)
         {

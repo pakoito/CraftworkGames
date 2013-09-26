@@ -80,7 +80,7 @@ namespace CraftworkGames.Gui
             }
         }
 
-        protected override IEnumerable<Control> GetControls()
+        public override IEnumerable<Control> GetControls()
         {
             return Controls.Select(i => i.Control);
         }

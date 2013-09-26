@@ -46,7 +46,7 @@ namespace CraftworkGames.Gui
                 AlignControl(control, this);
         }
 
-        protected override IEnumerable<Control> GetControls()
+        public override IEnumerable<Control> GetControls()
         {
             return Controls;
         }

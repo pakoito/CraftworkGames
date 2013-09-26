@@ -36,7 +36,9 @@ namespace CraftworkGames.Gui
 {
     public interface IDrawManager
     {
-        void Draw(int screenWidth, int screenHeight, IEnumerable<Control> controls);
+        int ViewportWidth { get; }
+        int ViewportHeight { get; }
+        void Draw(float screenScaleX, float screenScaleY, IEnumerable<Control> controls);
         void Draw(IGuiSprite sprite, Rectangle destinationRectangle);
         void DrawText(string text, Rectangle destinationRectangle, TextStyle style);
     }

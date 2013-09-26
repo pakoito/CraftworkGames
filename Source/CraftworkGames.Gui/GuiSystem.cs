@@ -39,34 +39,71 @@ namespace CraftworkGames.Gui
 {
     public class GuiSystem
     {   
-        public GuiSystem(IDrawManager drawManager, IInputManager inputManager)
+        public GuiSystem(IDrawManager drawManager, IInputManager inputManager, 
+            int virtualScreenWidth = 800, int virtualScreenHeight = 480)
         {
+            VirtualScreenWidth = virtualScreenWidth;
+            VirtualScreenHeight = virtualScreenHeight;
             _drawManager = drawManager;
             _inputManager = inputManager;
-            Controls = new List<Control>();
+        }
+
+        public int VirtualScreenWidth { get; set; }
+        public int VirtualScreenHeight { get; set; }
+
+        private ILayoutControl _rootLayout;
+        public ILayoutControl RootLayout 
+        {
+            get
+            {
+                return _rootLayout;
+            }
+            set
+            {                
+                _rootLayout = value;
+
+                if (_rootLayout != null)
+                {
+                    _rootLayout.Width = VirtualScreenWidth;
+                    _rootLayout.Height = VirtualScreenHeight;
+                    _rootLayout.PerformLayout();
+                }
+            }
         }
 
         private IDrawManager _drawManager;
         private IInputManager _inputManager;
 
-        public List<Control> Controls { get; private set; }
+        private Vector2 GetScreenScale()
+        {
+            var scaleX = (float)_drawManager.ViewportWidth / VirtualScreenWidth;
+            var scaleY = (float)_drawManager.ViewportHeight / VirtualScreenHeight;
+
+            return new Vector2(scaleX, scaleY);
+        }
 
         public bool Update(float deltaTime)
         {
-            _inputManager.ReadInputState();
+            if (RootLayout != null)
+            {
+                var screenScale = GetScreenScale();
 
-            foreach (var control in Controls)
-                control.Update(_inputManager, deltaTime);
+                _inputManager.ReadInputState(screenScale.X, screenScale.Y);
+
+                foreach (var control in RootLayout.GetControls())
+                    control.Update(_inputManager, deltaTime);
+            }
 
             return true;
         }
                 
         public void Draw()
         {
-            _drawManager.Draw(800, 480, Controls);
+            var screenScale = GetScreenScale();
+
+            if(RootLayout != null)
+                _drawManager.Draw(screenScale.X, screenScale.Y, RootLayout.GetControls());
         }
-
-
     }
 }
 
