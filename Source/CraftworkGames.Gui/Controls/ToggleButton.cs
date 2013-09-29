@@ -34,9 +34,10 @@ namespace CraftworkGames.Gui
 {
     public class ToggleButton : Button
     {
-        public ToggleButton(VisualStyle normalStyle)
+        public ToggleButton(VisualStyle normalStyle, VisualStyle checkedStyle)
             : base(normalStyle)
         {
+            CheckedStyle = checkedStyle;
             Pressed += OnPressed;
         }
 
@@ -70,13 +71,8 @@ namespace CraftworkGames.Gui
             var style = base.GetCurrentStyle();
 
             if(IsChecked)
-            {
-                if(CheckedStyle != null)
-                    style = CheckedStyle;
-                else
-                    style = PressedStyle;
-            }
-
+                return CheckedStyle;
+            
             return style;
         }
     }

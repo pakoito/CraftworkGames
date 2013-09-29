@@ -47,57 +47,102 @@ namespace CraftworkGames.GuiDemo
             var inputManager = new GuiInputManager();
 
             _gui = new GuiSystem(drawManager, inputManager);
-
-            var layout = new DockLayout();
             
-            var buttonOnTexture = Content.Load<Texture2D>("ButtonSwitchOn");
-            var buttonOffTexture = Content.Load<Texture2D>("ButtonSwitchOff");
-            var textureRegionOn = new TextureRegion(buttonOnTexture);
-            var textureRegionOff = new TextureRegion(buttonOffTexture);
-
-            var button = new Button(new VisualStyle(textureRegionOff))
-            {
-                PressedStyle = new VisualStyle(textureRegionOn),
-                VerticalAlignment = VerticalAlignment.Top,                
-            };
-            layout.Controls.Add(new DockItem(button, DockStyle.Left));
-
             var textureAtlas = TextureAtlas.Load(Content, "FrameworkGUI.xml");
-            var textureRegion = textureAtlas.GetRegion("PlayButton");
-            var playButton = new Button(new VisualStyle(textureRegion))
+            var titleScreen = CreateTitleScreen(textureAtlas);
+
+            _gui.RootLayout = titleScreen;
+        }
+
+        private ILayoutControl CreateTitleScreen(TextureAtlas textureAtlas)
+        {
+            var layout = new DockLayout();
+
+            var stackLayout = new StackLayout()
             {
-                HoverStyle = new VisualStyle(textureRegion) { Colour = new Color(Color.White, 0.8f) },
+                HorizontalAlignment = HorizontalAlignment.Centre,
+                VerticalAlignment = VerticalAlignment.Centre
+            };
+
+            var titleImage = new Image(new VisualStyle(textureAtlas.GetRegion("CraftworkGUI")))
+            {
+                Margin = new Margin(0, 0, 0, 40)
+            };
+            stackLayout.Controls.Add(titleImage);
+
+            var playButton = CreateScalingButton(textureAtlas.GetRegion("PlayButton"));            
+            stackLayout.Controls.Add(playButton);
+
+            layout.Controls.Add(new DockItem(stackLayout, DockStyle.Fill));
+
+            var optionsButton = CreateScalingButton(textureAtlas.GetRegion("CogButton"));
+            optionsButton.VerticalAlignment = VerticalAlignment.Bottom;
+            optionsButton.Clicked += (s, e) => _gui.RootLayout = CreateOptionsScreen(textureAtlas);
+            layout.Controls.Add(new DockItem(optionsButton, DockStyle.Left));
+
+            var socialStackLayout = new StackLayout()
+            {
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+
+            var facebookButton = CreateTiltingButton(textureAtlas.GetRegion("Facebook"), 0.1f);            
+            facebookButton.Clicked += (s, e) => Process.Start("https://www.facebook.com/CraftworkGames");
+            socialStackLayout.Controls.Add(facebookButton);
+
+            var twitterButton = CreateTiltingButton(textureAtlas.GetRegion("Twitter"), -0.1f);            
+            twitterButton.Clicked += (s, e) => Process.Start("https://twitter.com/craftworkgames");
+            socialStackLayout.Controls.Add(twitterButton);
+
+            layout.Controls.Add(new DockItem(socialStackLayout, DockStyle.Right));
+
+            return layout;
+        }
+
+        private ILayoutControl CreateOptionsScreen(TextureAtlas textureAtlas)
+        {
+            var dockLayout = new DockLayout();
+
+            var stackLayout = new StackLayout()
+            {
+                HorizontalAlignment = HorizontalAlignment.Centre,
+                VerticalAlignment = VerticalAlignment.Centre
+            };
+
+            var toggleButton = new ToggleButton(new VisualStyle(textureAtlas.GetRegion("TickButton")), new VisualStyle(textureAtlas.GetRegion("CrossButton")))
+            {
+                Text = "Music",                
+            };            
+            stackLayout.Controls.Add(toggleButton);
+
+            dockLayout.Controls.Add(new DockItem(stackLayout, DockStyle.Fill));
+
+            var backButton = CreateScalingButton(textureAtlas.GetRegion("BackButton"));
+            backButton.HorizontalAlignment = HorizontalAlignment.Left;
+            backButton.Clicked += (s, e) => _gui.RootLayout = CreateTitleScreen(textureAtlas);
+            dockLayout.Controls.Add(new DockItem(backButton, DockStyle.Bottom));
+
+            return dockLayout;
+        }
+
+        private Button CreateScalingButton(ITextureRegion textureRegion)
+        {            
+            return new Button(new VisualStyle(textureRegion))
+            {
+                HoverStyle = new VisualStyle(textureRegion) { Scale = new Vector2(1.05f) },
                 PressedStyle = new VisualStyle(textureRegion) { Scale = new Vector2(0.95f) },
             };
-            layout.Controls.Add(new DockItem(playButton, DockStyle.Fill));
+        }
 
-            var facebookRegion = textureAtlas.GetRegion("Facebook");
-            var facebookButton = new Button(new VisualStyle(facebookRegion))
-            {
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HoverStyle = new VisualStyle(facebookRegion) 
-                { 
-                    Rotation = 0.1f, 
-                    Origin = new Vector2(0.5f, 0.5f) 
+        private Button CreateTiltingButton(ITextureRegion textureRegion, float rotation)
+        {
+            return new Button(new VisualStyle(textureRegion))
+            {                
+                HoverStyle = new VisualStyle(textureRegion)
+                {
+                    Rotation = rotation,
+                    Origin = new Vector2(0.5f, 0.5f)
                 },
             };
-            facebookButton.Clicked += (s, e) => Process.Start("https://www.facebook.com/CraftworkGames");
-
-            var twitterRegion = textureAtlas.GetRegion("Twitter");
-            var twitterButton = new Button(new VisualStyle(twitterRegion)) 
-            { 
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HoverStyle = new VisualStyle(twitterRegion) 
-                { 
-                    Rotation = -0.1f, 
-                    Origin = new Vector2(0.5f, 0.5f) 
-                },
-            };
-            twitterButton.Clicked += (s, e) => Process.Start("https://twitter.com/craftworkgames");
-            layout.Controls.Add(new DockItem(facebookButton, DockStyle.Right));
-            layout.Controls.Add(new DockItem(twitterButton, DockStyle.Right));
-
-            _gui.RootLayout = layout;
         }
 
         protected override void Update(GameTime gameTime)

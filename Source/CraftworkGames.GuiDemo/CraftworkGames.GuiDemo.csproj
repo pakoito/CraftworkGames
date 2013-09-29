@@ -67,12 +67,6 @@
     <Content Include="Content\BlurredRectangle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ButtonSwitchOff.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\ButtonSwitchOn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\ExampleFont.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
